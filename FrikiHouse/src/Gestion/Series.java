@@ -8,6 +8,7 @@ import java.sql.Statement;
 import FrikiHouse.ConexionBBDD;
 
 public class Series {
+	
 	public static void crearTabla() {
 		String query = "CREATE TABLE IF NOT EXISTS Series ("
                 + "id_serie INT NOT NULL AUTO_INCREMENT , "
@@ -19,6 +20,7 @@ public class Series {
 		try (Connection c = ConexionBBDD.getConnection();
 				Statement s = c.createStatement()) {
 				s.execute(query);
+				System.out.println("Tabla creada correctamente.");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (Exception e) {

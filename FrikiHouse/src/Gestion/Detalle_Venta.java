@@ -7,16 +7,18 @@ import java.sql.Statement;
 
 import FrikiHouse.ConexionBBDD;
 
-public class Ventas {
+public class Detalle_Venta {
 	
 	public static void crearTabla() {
-		String query = "CREATE TABLE IF NOT EXISTS ventas ("
-                + "id_venta INT NOT NULL AUTO_INCREMENT, "
-                + "dni VARCHAR(9) NOT NULL, "
-                + "fecha_venta DATE NOT NULL, "
+		String query = "CREATE TABLE IF NOT EXISTS detalle_venta ("
+                + "id_detalle_venta INT NOT NULL AUTO_INCREMENT, "
+                + "id_venta INT NOT NULL, "
+                + "id_producto INT NOT NULL, "
+                + "cantidad INT NOT NULL, "
                 + "subtotal DECIMAL NOT NULL, "
-                + "PRIMARY KEY (id_venta), "
-                + "CONSTRAINT fk_ventas_clientes FOREIGN KEY (dni) REFERENCES clientes(dni)"
+                + "PRIMARY KEY (id_detalle_venta), "
+                + "CONSTRAINT fk_detalleventa_ventas FOREIGN KEY (id_venta) REFERENCES Ventas(id_venta), "
+                + "CONSTRAINT fk_detalleventa_productos FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) "
                 + ");";
 		
 		try (Connection c = ConexionBBDD.getConnection();
@@ -32,7 +34,7 @@ public class Ventas {
 	}
 	
 	public static void eliminarTabla() {
-		String query = "DROP TABLE IF EXISTS ventas";
+		String query = "DROP TABLE IF EXISTS detalle_venta";
 		try (Connection c = ConexionBBDD.getConnection();
 				Statement s = c.createStatement()) {
 				s.executeUpdate(query);
@@ -44,7 +46,7 @@ public class Ventas {
 	}
 	
 	public static void mostrar(String q) {
-		String query = "SELECT " + q  + " FROM ventas";
+		String query = "SELECT " + q  + " FROM detalle_venta";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -62,7 +64,7 @@ public class Ventas {
 	}
 	
 	public static void insertar(String valor) {
-		String query = "INSERT INTO ventas (nombre) VALUES ('" + valor + "')";
+		String query = "INSERT INTO detalle_venta (nombre) VALUES ('" + valor + "')";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
@@ -76,7 +78,7 @@ public class Ventas {
 	}
 	
 	public static void eliminarValor(String valor) {
-		String query = "DELETE FROM ventas WHERE nombre = " + "'" + valor + "'";
+		String query = "DELETE FROM detalle_venta WHERE nombre = " + "'" + valor + "'";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
@@ -89,7 +91,7 @@ public class Ventas {
 	}
 	
 	public static void actualizarValor(String valor) {
-		String query = "UPDATE ventas SET nombre = " + "'" + valor + "'";
+		String query = "UPDATE detalle_venta SET nombre = " + "'" + valor + "'";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
