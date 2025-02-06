@@ -40,16 +40,17 @@ public class Proveedores {
 		}
 	}
 	
-	public static void mostrar(String q) {
-		String query = "SELECT " + q  + " FROM proveedor";
+	public static void mostrarTabla() {
+		String query = "SELECT * FROM proveedor";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = s.executeQuery(query);
             
 			while (rs.next()) {
-				System.out.println("ID: " + rs.getString("id_serie"));
+				System.out.println("ID: " + rs.getString("id_proveedor"));
                 System.out.println("Serie: " + rs.getString("nombre"));
+                System.out.println("Contacto: " + rs.getString("contacto"));
 			}               
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -58,8 +59,8 @@ public class Proveedores {
 		}
 	}
 	
-	public static void insertar(String valor) {
-		String query = "INSERT INTO proveedor (nombre) VALUES ('" + valor + "')";
+	public static void insertar(String nombre, String contacto) {
+		String query = "INSERT INTO proveedor (nombre, contacto) VALUES ('" + nombre + "', '" + contacto + "')";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
@@ -72,8 +73,8 @@ public class Proveedores {
 		
 	}
 	
-	public static void eliminarValor(String valor) {
-		String query = "DELETE FROM proveedor WHERE nombre = " + "'" + valor + "'";
+	public static void eliminarValor(String campo, String valor) {
+		String query = "DELETE FROM proveedor WHERE campo = " + "'" + valor + "'";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
@@ -85,8 +86,8 @@ public class Proveedores {
 		}
 	}
 	
-	public static void actualizarValor(String valor) {
-		String query = "UPDATE proveedor SET nombre = " + "'" + valor + "'";
+	public static void actualizarValor(String id, String campo, String valor) {
+		String query = "UPDATE proveedor SET " + campo + " = " + "'" + valor + "' WHERE id_proveedor = " + id;
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();

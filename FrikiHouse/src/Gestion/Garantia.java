@@ -74,30 +74,4 @@ public class Garantia {
 		}
 		
 	}
-	
-	public static void eliminarValor(String valor) {
-		String query = "DELETE FROM garantia WHERE nombre = " + "'" + valor + "'";
-		try {
-			Connection c = ConexionBBDD.getConnection();
-			Statement s = c.createStatement();
-			s.executeUpdate(query);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-		}
-	}
-	
-	public static void actualizarValor(String valor) {
-		String query = "UPDATE garantia SET nombre = " + "'" + valor + "'";
-		try {
-			Connection c = ConexionBBDD.getConnection();
-			Statement s = c.createStatement();
-			s.executeUpdate(query);
-		}catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-		} 
-	}
 }

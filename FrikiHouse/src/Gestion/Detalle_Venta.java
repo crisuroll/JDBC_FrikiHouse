@@ -15,7 +15,7 @@ public class Detalle_Venta {
                 + "id_venta INT NOT NULL, "
                 + "id_producto INT NOT NULL, "
                 + "cantidad INT NOT NULL, "
-                + "subtotal DECIMAL NOT NULL, "
+                + "subtotal DECIMAL(10,2) NOT NULL, "
                 + "PRIMARY KEY (id_detalle_venta), "
                 + "CONSTRAINT fk_detalleventa_ventas FOREIGN KEY (id_venta) REFERENCES Ventas(id_venta), "
                 + "CONSTRAINT fk_detalleventa_productos FOREIGN KEY (id_producto) REFERENCES Productos(id_producto) "
@@ -77,6 +77,7 @@ public class Detalle_Venta {
 		
 	}
 	
+	/*
 	public static void eliminarValor(String valor) {
 		String query = "DELETE FROM detalle_venta WHERE nombre = " + "'" + valor + "'";
 		try {
@@ -102,4 +103,5 @@ public class Detalle_Venta {
 			e.printStackTrace(System.err);
 		} 
 	}
+	*/
 }

@@ -86,17 +86,4 @@ public class Clientes {
 			e.printStackTrace(System.err);
 		}
 	}
-	
-	public static void actualizarValor(String valor) {
-		String query = "UPDATE clientes SET nombre = " + "'" + valor + "'";
-		try {
-			Connection c = ConexionBBDD.getConnection();
-			Statement s = c.createStatement();
-			s.executeUpdate(query);
-		}catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-		} 
-	}
 }

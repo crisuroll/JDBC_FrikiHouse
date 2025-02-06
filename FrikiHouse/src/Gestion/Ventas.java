@@ -1,6 +1,7 @@
 package Gestion;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,16 +44,18 @@ public class Ventas {
 		}
 	}
 	
-	public static void mostrar(String q) {
-		String query = "SELECT " + q  + " FROM ventas";
+	public static void mostrarTabla() {
+		String query = "SELECT * FROM ventas";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = s.executeQuery(query);
             
 			while (rs.next()) {
-				System.out.println("ID: " + rs.getString("id_serie"));
-                System.out.println("Serie: " + rs.getString("nombre"));
+				System.out.println("ID: " + rs.getString("id_venta"));
+                System.out.println("DNI: " + rs.getString("dni"));
+                System.out.println("Fecha: " + rs.getString("fecha_venta"));
+                System.out.println("Subtotal: " + rs.getString("subtotal"));
 			}               
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -61,8 +64,8 @@ public class Ventas {
 		}
 	}
 	
-	public static void insertar(String valor) {
-		String query = "INSERT INTO ventas (nombre) VALUES ('" + valor + "')";
+	public static void insertar(String dni, String fecha_venta, String subtotal) {
+	    String query = "INSERT INTO ventas (dni, fecha_venta, subtotal) VALUES ('" + dni + "', " + fecha_venta + ", " + subtotal + ")";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
@@ -73,31 +76,5 @@ public class Ventas {
 			e.printStackTrace(System.err);
 		}
 		
-	}
-	
-	public static void eliminarValor(String valor) {
-		String query = "DELETE FROM ventas WHERE nombre = " + "'" + valor + "'";
-		try {
-			Connection c = ConexionBBDD.getConnection();
-			Statement s = c.createStatement();
-			s.executeUpdate(query);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-		}
-	}
-	
-	public static void actualizarValor(String valor) {
-		String query = "UPDATE ventas SET nombre = " + "'" + valor + "'";
-		try {
-			Connection c = ConexionBBDD.getConnection();
-			Statement s = c.createStatement();
-			s.executeUpdate(query);
-		}catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-		} 
 	}
 }

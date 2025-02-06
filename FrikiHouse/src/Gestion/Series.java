@@ -71,32 +71,5 @@ public class Series {
 			e.printStackTrace(System.err);
 		}
 		
-	}
-	
-	public static void eliminarValor(String valor) {
-		String query = "DELETE FROM series WHERE nombre = " + "'" + valor + "'";
-		try {
-			Connection c = ConexionBBDD.getConnection();
-			Statement s = c.createStatement();
-			s.executeUpdate(query);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-		}
-	}
-	
-	public static void actualizarValor(String valor) {
-		String query = "UPDATE series SET nombre = " + "'" + valor + "'";
-		try {
-			Connection c = ConexionBBDD.getConnection();
-			Statement s = c.createStatement();
-			s.executeUpdate(query);
-		}catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-		} 
-	}
-	
+	}	
 }

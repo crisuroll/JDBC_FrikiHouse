@@ -45,8 +45,8 @@ public class Detalle_Pedido {
 		}
 	}
 	
-	public static void mostrar(String q) {
-		String query = "SELECT " + q  + " FROM detalle_pedido";
+	public static void mostrar() {
+		String query = "SELECT * FROM detalle_pedido";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -54,7 +54,10 @@ public class Detalle_Pedido {
             
 			while (rs.next()) {
 				System.out.println("ID: " + rs.getString("id_serie"));
-                System.out.println("Serie: " + rs.getString("nombre"));
+                System.out.println("ID proveedor: " + rs.getString("id_proveedor"));
+                System.out.println("Fecha: " + rs.getString("fecha_pedido"));
+                System.out.println("Cantidad: " + rs.getString("cantidad_total"));
+                System.out.println("Subtotal: " + rs.getString("subtotal"));
 			}               
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -63,8 +66,8 @@ public class Detalle_Pedido {
 		}
 	}
 	
-	public static void insertar(String valor) {
-		String query = "INSERT INTO detalle_pedido (nombre) VALUES ('" + valor + "')";
+	public static void insertarValor(String valor) {
+		String query = "INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, subtotal) VALUES ('" + valor + "')";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
@@ -77,6 +80,7 @@ public class Detalle_Pedido {
 		
 	}
 	
+	/*
 	public static void eliminarValor(String valor) {
 		String query = "DELETE FROM detalle_pedido WHERE nombre = " + "'" + valor + "'";
 		try {
@@ -90,6 +94,7 @@ public class Detalle_Pedido {
 		}
 	}
 	
+	
 	public static void actualizarValor(String valor) {
 		String query = "UPDATE detalle_pedido SET nombre = " + "'" + valor + "'";
 		try {
@@ -102,4 +107,5 @@ public class Detalle_Pedido {
 			e.printStackTrace(System.err);
 		} 
 	}
+	*/
 }
