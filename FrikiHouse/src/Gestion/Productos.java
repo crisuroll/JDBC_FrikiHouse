@@ -46,16 +46,22 @@ public class Productos {
 		}
 	}
 	
-	public static void mostrar(String q) {
-		String query = "SELECT " + q  + " FROM productos";
+	public static void mostrarTabla() {
+		String query = "SELECT * FROM productos";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = s.executeQuery(query);
             
 			while (rs.next()) {
-				System.out.println("ID: " + rs.getString("id_serie"));
-                System.out.println("Serie: " + rs.getString("nombre"));
+				System.out.println("ID: " + rs.getString("id_producto"));
+                System.out.println("Serie: " + rs.getString("id_serie"));
+                System.out.println("Nombre: " + rs.getString("nombre"));
+                System.out.println("Marca: " + rs.getString("marca"));
+                System.out.println("Material: " + rs.getString("material"));
+                System.out.println("Precio: " + rs.getString("precio"));
+                System.out.println("Stock: " + rs.getString("stock"));
+                
 			}               
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -64,8 +70,33 @@ public class Productos {
 		}
 	}
 	
-	public static void insertar(String valor) {
-		String query = "INSERT INTO productos (nombre) VALUES ('" + valor + "')";
+	public static void mostrarValor(String id) {
+		String query = "SELECT * FROM productos WHERE id_producto = " + id;
+		try {
+			Connection c = ConexionBBDD.getConnection();
+			Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = s.executeQuery(query);
+			
+			if(rs.next()) {
+				System.out.println("ID: " + rs.getString("id_producto"));
+                System.out.println("Serie: " + rs.getString("id_serie"));
+                System.out.println("Nombre: " + rs.getString("nombre"));
+                System.out.println("Marca: " + rs.getString("marca"));
+                System.out.println("Material: " + rs.getString("material"));
+                System.out.println("Precio: " + rs.getString("precio"));
+                System.out.println("Stock: " + rs.getString("stock"));
+			}
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+		}
+	}
+	
+	public static void insertarValor(String serie, String nombre, String marca, String material, String precio,
+			String stock) {
+		String query = "INSERT INTO productos (id_serie, nombre, marca, material, precio, stock) VALUES "
+				+ "(" + serie + ", '" + nombre + "', '" + marca + "', '" + material + "', " + precio + "," + stock + ")";		
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
@@ -75,10 +106,10 @@ public class Productos {
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 		}
-		
 	}
 	
-	public static void eliminarValor(String valor) {
+	/*
+	 * public static void eliminarValor(String valor) {
 		String query = "DELETE FROM productos WHERE nombre = " + "'" + valor + "'";
 		try {
 			Connection c = ConexionBBDD.getConnection();
@@ -90,9 +121,20 @@ public class Productos {
 			e.printStackTrace(System.err);
 		}
 	}
+	*/
 	
-	public static void actualizarValor(String valor) {
-		String query = "UPDATE productos SET nombre = " + "'" + valor + "'";
+	public static void actualizarValor(String id, int n, String valor) {
+		String valorBuscado = "";
+		if (n == 1){
+			valorBuscado = "precio";
+		}else if (n == 2) {
+			valorBuscado = "stock";
+		}else {
+			System.out.println("Campo no encontrado");
+		}
+		
+		String query = "UPDATE productos SET " + valorBuscado  +   " = " + valor + " WHERE id_producto ="
+				+ id;
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
