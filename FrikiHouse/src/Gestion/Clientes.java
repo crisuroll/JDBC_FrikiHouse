@@ -13,8 +13,7 @@ public class Clientes {
 		String query = "CREATE TABLE IF NOT EXISTS clientes ("
                 + "dni VARCHAR(9) NOT NULL, "
                 + "nombre VARCHAR(50) NOT NULL, "
-                + "apellido1 VARCHAR(50) NOT NULL, "
-                + "apellido2 VARCHAR(50), "
+                + "apellido VARCHAR(50) NOT NULL, "
                 + "PRIMARY KEY (dni) "
                 + ");";
 		
@@ -42,16 +41,17 @@ public class Clientes {
 		}
 	}
 	
-	public static void mostrar(String q) {
-		String query = "SELECT " + q  + " FROM clientes";
+	public static void mostrarTabla() {
+		String query = "SELECT * FROM clientes";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = s.executeQuery(query);
             
 			while (rs.next()) {
-				System.out.println("ID: " + rs.getString("id_serie"));
-                System.out.println("Serie: " + rs.getString("nombre"));
+				System.out.println("ID: " + rs.getString("dni"));
+                System.out.println("Nombre: " + rs.getString("nombre"));
+                System.out.println("Apellido: " + rs.getString("apellido"));
 			}               
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -60,8 +60,27 @@ public class Clientes {
 		}
 	}
 	
-	public static void insertar(String valor) {
-		String query = "INSERT INTO clientes (nombre) VALUES ('" + valor + "')";
+	public static void mostrarValor(String dni) {
+		String query = "SELECT * FROM clientes WHERE dni = '" + dni + "'";
+		try {
+			Connection c = ConexionBBDD.getConnection();
+			Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = s.executeQuery(query);
+            
+			if (rs.next()) {
+				System.out.println("ID: " + rs.getString("dni"));
+                System.out.println("Nombre: " + rs.getString("nombre"));
+                System.out.println("Apellido: " + rs.getString("apellido"));
+			}               
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+		}
+	}
+	
+	public static void insertarValor(String dni, String nombre, String apellido) {
+		String query = "INSERT INTO clientes (dni, nombre, apellido) VALUES ('" + dni + "', '" + nombre + "', '" + apellido + "')";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
@@ -74,8 +93,8 @@ public class Clientes {
 		
 	}
 	
-	public static void eliminarValor(String valor) {
-		String query = "DELETE FROM clientes WHERE nombre = " + "'" + valor + "'";
+	public static void eliminarValor(String dni) {
+		String query = "DELETE FROM clientes WHERE dni = " + "'" + dni + "'";
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
