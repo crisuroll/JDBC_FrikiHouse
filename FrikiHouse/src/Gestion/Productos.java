@@ -108,20 +108,18 @@ public class Productos {
 		}
 	}
 	
-	/*
-	 * public static void eliminarValor(String valor) {
-		String query = "DELETE FROM productos WHERE nombre = " + "'" + valor + "'";
-		try {
-			Connection c = ConexionBBDD.getConnection();
-			Statement s = c.createStatement();
-			s.executeUpdate(query);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-		}
-	}
-	*/
+	public static void eliminarValores(String id) {
+        String query = "DELETE FROM productos WHERE id_producto = " + "'" + id + "'";
+        try {
+            Connection c = ConexionBBDD.getConnection();
+            Statement s = c.createStatement();
+            s.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+    }
 	
 	public static void actualizarValor(String id, int n, String valor) {
 		String valorBuscado = "";
@@ -145,5 +143,4 @@ public class Productos {
 			e.printStackTrace(System.err);
 		} 
 	}
-	
 }
