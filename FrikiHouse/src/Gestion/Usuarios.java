@@ -7,12 +7,18 @@ import java.sql.Statement;
 
 import FrikiHouse.ConexionBBDD;
 
+/**
+ * Clase Usuarios. Contiene todos los métodos para hacer operaciones CRUD en dicha tabla.
+ */
 public class Usuarios {
 	
 	public enum Rol {
 		ADMIN, EMPLEADO;
 	}
 	
+	/**
+	 * Método crearTabla(). Crea la tabla en la BBDD.
+	 */
 	public static void crearTabla() {
 		String query = "CREATE TABLE IF NOT EXISTS usuarios ("
                 + "id_usuario INT NOT NULL AUTO_INCREMENT, "
@@ -25,7 +31,6 @@ public class Usuarios {
 		try (Connection c = ConexionBBDD.getConnection();
 				Statement s = c.createStatement()) {
 				s.execute(query);
-				System.out.println("Tabla creada correctamente.");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (Exception e) {
@@ -34,6 +39,9 @@ public class Usuarios {
 		
 	}
 	
+	/**
+	 * Método eliminarTabla(). Elimina la tabla de la BBDD.
+	 */
 	public static void eliminarTabla() {
 		String query = "DROP TABLE IF EXISTS usuarios";
 		try (Connection c = ConexionBBDD.getConnection();
@@ -46,6 +54,9 @@ public class Usuarios {
 		}
 	}
 	
+	/**
+	 * Método mostrarTabla(). Muestra la tabla completa.
+	 */
 	public static void mostrarTabla() {
 		String query = "SELECT * FROM usuarios";
 		try {
@@ -66,6 +77,10 @@ public class Usuarios {
 		}
 	}
 	
+	/**
+	 * Método mostrarValor(). Muestra las filas donde el id coincida por el pasado por parámetro.
+	 * @param id
+	 */
 	public static void mostrarValor(String id) {
 		String query = "SELECT * FROM usuarios WHERE id_usuario = " + id;
 		try {
@@ -86,7 +101,13 @@ public class Usuarios {
 		}
 	}
 	
-	public static void insertar(String nombre, String contraseña, String rol) {
+	/**
+	 * Método insertarValor(). Inserta una nueva fila a la tabla.
+	 * @param nombre
+	 * @param contraseña
+	 * @param rol
+	 */
+	public static void insertar(String nombre, String contraseña, Rol rol) {
 	    String query = "INSERT INTO usuarios (nombre, contraseña, rol) VALUES ('" + nombre + "', '" + contraseña + "', '" + rol + "')";
 	    
 	    try (Connection c = ConexionBBDD.getConnection();
@@ -100,6 +121,10 @@ public class Usuarios {
 	    }
 	}
 	
+	/**
+	 * Método eliminarUsuario(). Elimina la fila donde coincida el id pasado por parámetro.
+	 * @param id
+	 */
 	public static void eliminarUsuario(String id) {
 		String query = "DELETE FROM usuarios WHERE id_usuario = " + "'" + id + "'";
 		try {
@@ -113,8 +138,14 @@ public class Usuarios {
 		}
 	}
 	
-	public static void actualizarValor(String id, String campo, String valor) {
-		String query = "UPDATE usuarios SET " + campo + " = " + "'" + valor + "' WHERE id_usuario = " + id;
+    /**
+     * Metodo actualizarValor(). Actualiza el parametro dado al valor dado.
+     * @param id
+     * @param n
+     * @param valor
+     */
+	public static void actualizarValor(String id, String valor, String n) {
+		String query = "UPDATE usuarios SET " + n + " = " + "'" + valor + "' WHERE id_usuario = " + id;
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();

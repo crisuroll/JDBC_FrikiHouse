@@ -7,8 +7,14 @@ import java.sql.Statement;
 
 import FrikiHouse.ConexionBBDD;
 
+/**
+ * Clase Series. Contiene todos los métodos para hacer operaciones CRUD en dicha tabla.
+ */
 public class Series {
 	
+	/**
+	 * Método crearTabla(). Crea la tabla en la BBDD.
+	 */
 	public static void crearTabla() {
 		String query = "CREATE TABLE IF NOT EXISTS Series ("
                 + "id_serie INT NOT NULL AUTO_INCREMENT , "
@@ -20,7 +26,6 @@ public class Series {
 		try (Connection c = ConexionBBDD.getConnection();
 				Statement s = c.createStatement()) {
 				s.execute(query);
-				System.out.println("Tabla creada correctamente.");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (Exception e) {
@@ -29,6 +34,9 @@ public class Series {
 		
 	}
 	
+	/**
+	 * Método eliminarTabla(). Elimina la tabla de la BBDD.
+	 */
 	public static void eliminarTabla() {
 		String query = "DROP TABLE IF EXISTS Series";
 		try (Connection c = ConexionBBDD.getConnection();
@@ -41,6 +49,9 @@ public class Series {
 		}
 	}
 	
+	/**
+	 * Método mostrarTabla(). Muestra la tabla completa.
+	 */
 	public static void mostrarTabla() {
 		String query = "SELECT * FROM Series ORDER BY id_serie";
 		try {
@@ -59,6 +70,10 @@ public class Series {
 		}
 	}
 	
+	/**
+	 * Método mostrarValor(). Muestra las filas donde el id coincida por el pasado por parámetro.
+	 * @param id
+	 */
 	public static void mostrarValor(String id) {
 		String query = "SELECT * FROM series WHERE id_producto = " + id;
 		try {
@@ -77,6 +92,10 @@ public class Series {
 		}
 	}
 	
+	/**
+	 * Método eliminarValores(). Elimina la fila donde coincida el id pasado por parámetro.
+	 * @param id
+	 */
 	public static void eliminarValores(String id) {
 	    String deleteQuery = "DELETE FROM series WHERE id_serie = " + "'" + id + "'";
 	    String resetAutoIncrementQuery = "ALTER TABLE series AUTO_INCREMENT = 1";
@@ -92,6 +111,10 @@ public class Series {
 	    }
 	}
 	
+	/**
+	 * Método insertarValor(). Inserta una nueva fila a la tabla.
+	 * @param valor
+	 */
 	public static void insertarValor(String valor) {
 		String query = "INSERT INTO series (nombre) VALUES ('" + valor + "')";
 		try {

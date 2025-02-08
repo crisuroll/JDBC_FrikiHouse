@@ -7,8 +7,14 @@ import java.sql.Statement;
 
 import FrikiHouse.ConexionBBDD;
 
+/**
+ * Clase Proveedores. Contiene todos los métodos para hacer operaciones CRUD en dicha tabla.
+ */
 public class Proveedores {
     
+	/**
+	 * Método crearTabla(). Crea la tabla en la BBDD.
+	 */
     public static void crearTabla() {
         String query = "CREATE TABLE IF NOT EXISTS proveedor ("
                 + "id_proveedor INT NOT NULL AUTO_INCREMENT, "
@@ -27,8 +33,11 @@ public class Proveedores {
         }
     }
     
+    /**
+	 * Método eliminarTabla(). Elimina la tabla de la BBDD.
+	 */
     public static void eliminarTabla() {
-        String query = "DROP TABLE IF EXISTS proveedor";
+        String query = "DROP TABLE IF EXISTS proveedores";
         try (Connection c = ConexionBBDD.getConnection();
                 Statement s = c.createStatement()) {
             s.executeUpdate(query);
@@ -39,6 +48,9 @@ public class Proveedores {
         }
     }
     
+    /**
+	 * Método mostrarTabla(). Muestra la tabla completa.
+	 */
     public static void mostrarTabla() {
         String query = "SELECT * FROM proveedor";
         try {
@@ -58,6 +70,10 @@ public class Proveedores {
         }
     }
     
+    /**
+	 * Método insertarValor(). Inserta una nueva fila a la tabla.
+	 * @param nombre, contacto
+	 */
     public static void insertarValor(String nombre, String contacto) {
         String query = "INSERT INTO proveedor (nombre, contacto) VALUES ('" + nombre + "', '" + contacto + "')";
         try {
@@ -71,6 +87,9 @@ public class Proveedores {
         }
     }
     
+    /**
+	 * Método eliminarTabla(). Elimina la tabla de la BBDD.
+	 */
     public static void eliminarValores(String id_proveedor) {
         String deleteQuery = "DELETE FROM proveedor WHERE id_proveedor = " + id_proveedor;
         String resetAutoIncrementQuery = "ALTER TABLE proveedor AUTO_INCREMENT = 1"; 
@@ -86,6 +105,12 @@ public class Proveedores {
         }
     }
     
+    /**
+     * Metodo actualizarValor(). Actualiza el parametro dado al valor dado.
+     * @param id_proveedor
+     * @param n
+     * @param valor
+     */
     public static void actualizarValor(String id_proveedor, int n, String valor) {
         String campo = "";
         if (n == 1) {

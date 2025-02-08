@@ -7,8 +7,14 @@ import java.sql.Statement;
 
 import FrikiHouse.ConexionBBDD;
 
+/**
+ * Clase Detalle_Venta. Contiene todos los métodos para hacer operaciones CRUD en dicha tabla.
+ */
 public class Detalle_Venta {
     
+	/**
+	 * Método crearTabla(). Crea la tabla en la BBDD.
+	 */
     public static void crearTabla() {
         String query = "CREATE TABLE IF NOT EXISTS detalle_venta ("
                 + "id_detalle_venta INT NOT NULL AUTO_INCREMENT, "
@@ -24,7 +30,6 @@ public class Detalle_Venta {
         try (Connection c = ConexionBBDD.getConnection();
                 Statement s = c.createStatement()) {
             s.execute(query);
-            System.out.println("Tabla creada correctamente.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
@@ -32,6 +37,9 @@ public class Detalle_Venta {
         }
     }
     
+    /**
+	 * Método eliminarTabla(). Elimina la tabla de la BBDD.
+	 */
     public static void eliminarTabla() {
         String query = "DROP TABLE IF EXISTS detalle_venta";
         try (Connection c = ConexionBBDD.getConnection();
@@ -44,6 +52,9 @@ public class Detalle_Venta {
         }
     }
     
+    /**
+	 * Método mostrarTabla(). Muestra la tabla completa.
+	 */
     public static void mostrarTabla() {
         String query = "SELECT * FROM detalle_venta";
         try {
@@ -65,6 +76,13 @@ public class Detalle_Venta {
         }
     }
     
+    /**
+	 * Método insertarValor(). Inserta una nueva fila a la tabla.
+	 * @param id_venta
+	 * @param id_producto
+	 * @param cantidad
+	 * @param subtotal
+	 */
     public static void insertarValor(String id_venta, String id_producto, String cantidad, String subtotal) {
         String query = "INSERT INTO detalle_venta (id_venta, id_producto, cantidad, subtotal) VALUES (" 
                 + id_venta + ", " + id_producto + ", " + cantidad + ", " + subtotal + ")";

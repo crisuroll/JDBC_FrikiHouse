@@ -7,8 +7,14 @@ import java.sql.Statement;
 
 import FrikiHouse.ConexionBBDD;
 
+/**
+ * Clase Ventas. Contiene todos los métodos para hacer operaciones CRUD en dicha tabla.
+ */
 public class Ventas {
     
+	/**
+	 * Método crearTabla(). Crea la tabla en la BBDD.
+	 */
     public static void crearTabla() {
         String query = "CREATE TABLE IF NOT EXISTS ventas ("
                 + "id_venta INT NOT NULL AUTO_INCREMENT, "
@@ -22,7 +28,6 @@ public class Ventas {
         try (Connection c = ConexionBBDD.getConnection();
                 Statement s = c.createStatement()) {
             s.execute(query);
-            System.out.println("Tabla creada correctamente.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
@@ -30,6 +35,9 @@ public class Ventas {
         }
     }
     
+    /**
+	 * Método eliminarTabla(). Elimina la tabla de la BBDD.
+	 */
     public static void eliminarTabla() {
         String query = "DROP TABLE IF EXISTS ventas";
         try (Connection c = ConexionBBDD.getConnection();
@@ -42,6 +50,9 @@ public class Ventas {
         }
     }
     
+    /**
+	 * Método mostrarTabla(). Muestra la tabla completa.
+	 */
     public static void mostrarTabla() {
         String query = "SELECT * FROM ventas";
         try {
@@ -54,6 +65,7 @@ public class Ventas {
                 System.out.println("DNI: " + rs.getString("dni"));
                 System.out.println("Fecha Venta: " + rs.getString("fecha_venta"));
                 System.out.println("Subtotal: " + rs.getString("subtotal"));
+                System.out.println("-----------------------------\n");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -62,6 +74,10 @@ public class Ventas {
         }
     }
     
+    /**
+	 * Método mostrarValor(). Muestra las filas donde el id coincida por el pasado por parámetro.
+	 * @param id_venta
+	 */
     public static void mostrarValor(String id_venta) {
         String query = "SELECT * FROM ventas WHERE id_venta = " + id_venta;
         try {
@@ -74,6 +90,7 @@ public class Ventas {
                 System.out.println("DNI: " + rs.getString("dni"));
                 System.out.println("Fecha Venta: " + rs.getString("fecha_venta"));
                 System.out.println("Subtotal: " + rs.getString("subtotal"));
+                System.out.println("-----------------------------\n");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -82,16 +99,31 @@ public class Ventas {
         }
     }
     
-    public static void insertarValor(String dni, String fecha_venta, String subtotal) {
+	/**
+	 * Método insertarValor(). Inserta una nueva fila a la tabla.
+	 * @param dni
+	 * @param fecha_venta
+	 * @param subtotal
+	 * @return idVenta
+	 */
+    public static String insertarValor(String dni, String fecha_venta, String subtotal) {
         String query = "INSERT INTO ventas (dni, fecha_venta, subtotal) VALUES ('" + dni + "', '" + fecha_venta + "', " + subtotal + ")";
-        try {
-            Connection c = ConexionBBDD.getConnection();
-            Statement s = c.createStatement();
-            s.executeUpdate(query);
+        String idVenta = null;
+        
+        try (Connection c = ConexionBBDD.getConnection();
+             Statement s = c.createStatement()) {
+            s.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = s.getGeneratedKeys();
+            if (rs.next()) {
+                idVenta = String.valueOf(rs.getInt(1));
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
+        
+        return idVenta;
     }
+
 }

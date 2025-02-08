@@ -7,8 +7,14 @@ import java.sql.Statement;
 
 import FrikiHouse.ConexionBBDD;
 
+/**
+ * Clase Clientes. Contiene todos los métodos para hacer operaciones CRUD en dicha tabla.
+ */
 public class Clientes {
 	
+	/**
+	 * Método crearTabla(). Crea la tabla en la BBDD.
+	 */
 	public static void crearTabla() {
 		String query = "CREATE TABLE IF NOT EXISTS clientes ("
                 + "dni VARCHAR(9) NOT NULL, "
@@ -20,7 +26,6 @@ public class Clientes {
 		try (Connection c = ConexionBBDD.getConnection();
 				Statement s = c.createStatement()) {
 				s.execute(query);
-				System.out.println("Tabla creada correctamente.");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (Exception e) {
@@ -29,6 +34,9 @@ public class Clientes {
 		
 	}
 	
+	/**
+	 * Método eliminarTabla(). Elimina la tabla de la BBDD.
+	 */
 	public static void eliminarTabla() {
 		String query = "DROP TABLE IF EXISTS clientes";
 		try (Connection c = ConexionBBDD.getConnection();
@@ -41,6 +49,9 @@ public class Clientes {
 		}
 	}
 	
+	/**
+	 * Método mostrarTabla(). Muestra la tabla completa.
+	 */
 	public static void mostrarTabla() {
 		String query = "SELECT * FROM clientes";
 		try {
@@ -60,6 +71,10 @@ public class Clientes {
 		}
 	}
 	
+	/**
+	 * Método mostrarValor(). Muestra las filas donde el dni coincida por el pasado por parámetro.
+	 * @param dni
+	 */
 	public static void mostrarValor(String dni) {
 		String query = "SELECT * FROM clientes WHERE dni = '" + dni + "'";
 		try {
@@ -79,6 +94,12 @@ public class Clientes {
 		}
 	}
 	
+	/**
+	 * Método insertarValor(). Inserta una nueva fila a la tabla.
+	 * @param dni
+	 * @param nombre
+	 * @param apellido
+	 */
 	public static void insertarValor(String dni, String nombre, String apellido) {
 		String query = "INSERT INTO clientes (dni, nombre, apellido) VALUES ('" + dni + "', '" + nombre + "', '" + apellido + "')";
 		try {
@@ -93,6 +114,10 @@ public class Clientes {
 		
 	}
 	
+	/**
+	 * Método eliminarValor(). Elimina la fila donde coincida el dni pasado por parámetro.
+	 * @param dni
+	 */
 	public static void eliminarValor(String dni) {
 		String query = "DELETE FROM clientes WHERE dni = " + "'" + dni + "'";
 		try {
