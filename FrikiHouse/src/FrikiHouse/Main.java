@@ -121,7 +121,7 @@ public class Main {
 								break;
 							// Salir
 							case 5:
-								System.out.println("Saliendo del menú de administrador...");
+								System.out.println("\nSaliendo del menú de administrador...");
 								break;
 							default:
 								System.out.println("Opción no válida.");
@@ -163,7 +163,7 @@ public class Main {
 							break;
 						// Historial de pedidos
 						case 3:
-	                        System.out.println("Mostrando historial de pedidos...");
+	                        System.out.println("\nMostrando historial de pedidos...\n");
 	                        String queryPedidos = "SELECT dp.id_detalle_pedido, p.id_pedido, pr.nombre AS producto, dp.cantidad "
 	                                + "FROM detalle_pedido dp "
 	                                + "JOIN pedidos p ON dp.id_pedido = p.id_pedido "
@@ -207,7 +207,7 @@ public class Main {
 	                        break;
 	                    // Historial de ventas
 						case 5:
-	                        System.out.println("Mostrando historial de ventas...");
+	                        System.out.println("\nMostrando historial de ventas...");
 	                        String queryVentas = "SELECT dv.id_detalle_venta, v.id_venta, c.nombre AS cliente, g.fecha_inicio, g.fecha_fin, dv.cantidad, dv.subtotal "
 	                                + "FROM detalle_venta dv "
 	                                + "JOIN ventas v ON dv.id_venta = v.id_venta "
@@ -229,7 +229,7 @@ public class Main {
 	                        break;
 						// Estadísticas
 						case 6:
-	                        System.out.println("Mostrando estadísticas...");
+	                        System.out.println("\nMostrando estadísticas...");
 	                        String queryStats = "SELECT "
 	                                + "COUNT(*) AS total_productos, "
 	                                + "MAX(precio) AS producto_mas_caro, "
@@ -248,7 +248,7 @@ public class Main {
 	                        break;
 						// Salir
 						case 7:
-							System.out.println("Saliendo del gestor de FrikiHouse...");
+							System.out.println("\nSaliendo del gestor de FrikiHouse...");
 							break;
 						default:
 							System.err.println("Opción no válida.");
@@ -258,7 +258,7 @@ public class Main {
 					break;
 				// Salir
 				case 3:
-					System.out.println("Saliendo de FrikiHouse...");
+					System.out.println("\nSaliendo de FrikiHouse...");
 					break;
 				default:
 					System.err.println("Opción no válida.");

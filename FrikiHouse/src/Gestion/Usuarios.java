@@ -144,8 +144,8 @@ public class Usuarios {
      * @param n
      * @param valor
      */
-	public static void actualizarValor(String id, String valor, String n) {
-		String query = "UPDATE usuarios SET " + n + " = " + "'" + valor + "' WHERE id_usuario = " + id;
+	public static void actualizarValor(String id, String valor) {
+		String query = "UPDATE usuarios SET contraseña = " + "'" + valor + "' WHERE id_usuario = " + id;
 		try {
 			Connection c = ConexionBBDD.getConnection();
 			Statement s = c.createStatement();
